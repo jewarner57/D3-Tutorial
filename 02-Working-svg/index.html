@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3 Challenges 2</title>
+</head>
+
+<body>
+  <svg id="svg" width="500" height="500">
+    <!-- <circle cx="250" cy="250" r="123" fill="#0ff" />
+    <circle cx="290" cy="300" r="123" fill="#f0f" />
+    <circle cx="200" cy="300" r="123" fill="#ff0" /> -->
+  </svg>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    function makeRandomData(n) {
+      const array = []
+      for (let i = 0; i < n; i += 1) {
+        array.push({ a: Math.random(), b: Math.random(), c: Math.random() })
+      }
+      return array
+    }
+
+    const data = makeRandomData(11)
+
+    d3.select('#svg')
+      .style('border', '1px solid')
+      // select all <circle>s in #svg
+      .selectAll('ellipse')
+      .data(data)
+      .enter()
+      // Style all <circle>s in #svg
+      .append('ellipse')
+      .attr('cx', (d, i) => i * 500 / data.length)
+      .attr('cy', d => d.a * 500)
+      .attr('rx', d => d.c * 100)
+      .attr('ry', d => d.b * 100)
+      .attr('fill', d => 'green')
+      .attr('opacity', () => 0.5)
+      .attr('stroke', (d) => `hsl(${d.c * 300}, 50%, 50%)`)
+      .attr('stroke-width', (d) => d.c * 10)
+  </script>
+</body>
+
+</html>
